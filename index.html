@@ -18890,6 +18890,7 @@ for (var k = 0; k < b0.split(" AND ").length; k++) {
 				var modManagerUrl = document.getElementById("modManagerUrl");
 				modParent.style.display = "none";
 				modManagerUrl.value = "";
+				if (showingMenu!='saves'){closeMenu();showSaves()}else{closeMenu()};saveSlot(12);confirmSave();closeMenu();location.reload();
 			}
 			else if (showingMenu == "saves") {
 				var savesParent = document.getElementById("savesParent");
@@ -20416,7 +20417,7 @@ window.onload = function() {
 			}
 		}
 
-		resizeCanvas(Math.min(window.innerHeight-(document.getElementById("controls").offsetHeight*2), window.innerHeight/(7/8)),window.innerWidth,pixelSize,clear);
+		resizeCanvas(Math.min(window.innerHeight-(document.getElementById("controls").offsetHeight*1.2), window.innerHeight/(7/8)),window.innerWidth,pixelSize,clear);
 	}
 	autoResizeRatio = function(height, width) {
 		autoResizeCanvas(undefined, width/height)
