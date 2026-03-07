@@ -54,10 +54,6 @@
 		standalone = false;
 		standaloneType = null;
 	</script>
-        <script>
-          if (loadedMods.includes("betterModManager.js")) {} else {addMod("betterModManager.js", true)};
-          document.getElementById("settingLabel-limitless").setAttribute("state","1");
-        </script>
 	<style>
 		.setting-span {
 			display:block;padding-bottom:0.5em
@@ -20420,7 +20416,7 @@ window.onload = function() {
 			}
 		}
 
-		resizeCanvas(Math.min(window.innerHeight-(document.getElementById("controls").offsetHeight*1.5), window.innerHeight/(7/8)),window.innerWidth,pixelSize,clear);
+		resizeCanvas(Math.min(window.innerHeight-(document.getElementById("controls").offsetHeight*2), window.innerHeight/(7/8)),window.innerWidth,pixelSize,clear);
 	}
 	autoResizeRatio = function(height, width) {
 		autoResizeCanvas(undefined, width/height)
@@ -20846,6 +20842,16 @@ window.onload = function() {
 </head>
 
 <body>
+	<script>
+	  const arr = ["death_count.js","descriptions.js","drill.js","all_stain.js","edible_everything.js","betterModManager.js","customBackground.js","elementreplacer.js","code_library.js", "dogs.js","Lab.js","CherrySoda.js","boiling_things.js","cookingnstuff.js","ants.js","Science_mod.js","EasterEggs.js","elementEraser.js", "GrapeSoda.js","copypaste.js","debris.js","cooked_apple.js","cool_tools.js","copy_canvas.js","all_around_fillers.js","FoodFoodFood.js","editTools.js", "amogus.js","betterSettings.js","electricityTest.js","CandyCanes.js","smooth_water.js","aChefsDream2.js","elementsManager.js","Temperature+.js", "CandyCorn.js","aChefsDream.js","betterMenuScreens.js","betterMenuScreens.js"]
+	  if (loadedMods.includes("betterModManager.js")) {} else {addMod("betterModManager.js", true)};
+	  for (let i = 0; i < arr.length; i++) {
+		if (loadedMods.includes(arr[i])) {} else {
+		  console.log(arr[i] +  ' loaded.');
+		  addMod(arr[i] + ".js", true);
+	  }}
+	  document.getElementById("settingLabel-limitless").setAttribute("state","1");
+	</script>
 	<h1 class="pagetitle" id="pagetitle"><a href="https://R74n.com" class="backbutton" target="_blank">&lt;</a></h1>
 	<noscript>You don't have JavaScript enabled! JavaScript is required to play Sandboxels, and most other browser tools.</noscript>
 	<div id="totalWrapper">
