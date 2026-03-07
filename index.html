@@ -20420,7 +20420,7 @@ window.onload = function() {
 			}
 		}
 
-		resizeCanvas(newHeight,window.innerWidth,pixelSize,clear);
+		resizeCanvas((window.innerHeight/2),window.innerWidth,pixelSize,clear);
 	}
 	autoResizeRatio = function(height, width) {
 		autoResizeCanvas(undefined, width/height)
