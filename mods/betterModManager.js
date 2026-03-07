@@ -1,4 +1,5 @@
 var awaitingReload = [];
+const yelling = false
 
 function updateModManager() {
     const modManager = document.getElementById("modManager");
@@ -51,7 +52,7 @@ function addModList() {
     modManagerUrl.style.marginBottom = "10px";
     modManagerUrl.onkeydown = (ev) => {
         if (ev.key == "Enter") {
-            addMod(document.getElementById("modManagerUrl").value, true);
+            addMod(document.getElementById("modManagerUrl").value, yelling);
             document.getElementById("modManagerUrl").value = '';
         }
         this.focus();
@@ -93,7 +94,7 @@ function updateModList() {
                     // why on earth addMod adds "mods/" automatically and removeMod doesnt
                     removeMod(file.startsWith("mods/") ? file : "mods/" + file);
                 } else {
-                    addMod(file.replace(/mods\//g, ""), true);
+                    addMod(file.replace(/mods\//g, ""), yelling);
                 }
                 awaitingReload.push(file);
                 span.innerText = " -";
@@ -172,4 +173,5 @@ if (enabledMods.includes("mods/betterMenuScreens.js")) {
     }
     runAfterLoadList.push(updateModManager);
 }
+
 
