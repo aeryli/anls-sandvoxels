@@ -21149,13 +21149,8 @@ window.onload = function() {
 					</span>
 					<br>
 					<span setting="pixelsize" class="setting-span multisetting" title="Default: Medium">
-						<span id="settingLabel-pixelsize">Canvas Size</span> <select onchange="setSetting('pixelsize',this.value); if(!currentPixels.length){autoResizeCanvas()} else {this.nextElementSibling.innerText=langKey('gui.settingsReset','Reset Scene')}">
-							<option value="12" id="setting-pixelsize-12">Tiny</option>
-							<option value="8" id="setting-pixelsize-8">Small</option>
-							<option value="6" id="setting-pixelsize-6" selected>Medium</option>
-							<option value="6w" id="setting-pixelsize-6w">Wide</option>
-							<option value="4" id="setting-pixelsize-4">Large</option>
-						</select>
+						<span id="settingLabel-pixelsize">Canvas Size</span> 
+						<input onchange="setSetting('pixelsize',this.value); if(!currentPixels.length){autoResizeCanvas()} else {this.nextElementSibling.innerText=langKey('gui.settingsReset','Reset Scene')}"></input>
 						<span onclick="resetPrompt()" class="settingsReset"></span>
 						&nbsp;
 					</span>
