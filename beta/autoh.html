@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Overlay Dock</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrollbars from the canvas */
+            background-color: #1a1a1a;
+            font-family: sans-serif;
+        }
+
+        /* 1. The Interactive Canvas */
+        #myCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 1; /* Lowest layer */
+        }
+
+        /* 2. The Sticky Dock */
+        #auto-hide-dock {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(105%);
+            width: 60%;
+            background-color: rgba(40, 40, 40, 0.95); /* Semi-transparent */
+            backdrop-filter: blur(10px); /* Modern frosted glass effect */
+            color: white;
+            padding: 25px;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+            transition: transform 0.4s;
+            z-index: 1000; /* High layer to stay above canvas */
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        #auto-hide-dock.visible {
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="myCanvas"></canvas>
+
+    <div id="auto-hide-dock">
+        <span class="close-btn" id="close-dock">&times;</span>
+        <h3 style="margin-top: 0;">Canvas Control Center</h3>
+        <p>I am floating above the interactive layer.</p>
+    </div>
+
+    <button id="open-dock-btn" title="Show Dock">☰</button>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        const dock = document.getElementById('auto-hide-dock');
+
+        let isManuallyClosed = false;
+        const threshold = 120;
+
+        // --- 1. SETUP CANVAS ---
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Simple Canvas Interaction (Drawing circles on move)
+        window.addEventListener('mousemove', (e) => {
+            // Draw on canvas
+            ctx.fillStyle = 'rgba(0, 150, 255, 0.1)';
+            ctx.beginPath();
+            ctx.arc(e.clientX, e.clientY, 20, 0, Math.PI * 2);
+            ctx.fill();
+
+            // --- 2. DOCK LOGIC ---
+            if (!isManuallyClosed) {
+                const distanceFromBottom = window.innerHeight - e.clientY;
+                if (distanceFromBottom > threshold || e.buttons === 0) {
+                    dock.classList.add('visible');
+                } else {
+                    dock.classList.remove('visible');
+                }
+            }
+        });
+
+        // --- 3. UI CONTROLS ---
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent canvas from drawing under the click
+            isManuallyClosed = true;
+            dock.classList.remove('visible');
+            openBtn.style.display = 'block';
+        });
+
+        openBtn.addEventListener('click', () => {
+            isManuallyClosed = false;
+            openBtn.style.display = 'none';
+            dock.classList.add('visible');
+        });
+    </script>
+</body>
+</html>
