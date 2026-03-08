@@ -20905,9 +20905,7 @@ window.onload = function() {
 				<div id="category-tools" category="tools" style="display: flex;"></div>
 				<div id="category-edit" class="category" category="edit" style="display: none;"><button class="elementButton close" onclick="toggleEditMode();">X</button></div>
 				<div id="categoryControls"></div>
-				<div id="elementControls" style="display: flex; justify-content: center; align-items: center; height: 300px;"></div>
-			</div>
-			
+				<div id="elementControls" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;"></div></div>
 			<script>
 				// version check
 				if (!settings["lastversion"] || settings["lastversion"]!==currentversion) {
