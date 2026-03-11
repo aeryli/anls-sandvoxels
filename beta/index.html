@@ -20957,11 +20957,11 @@ window.onload = function() {
 		</div>
 		<script>
 		const thedockOJ = document.getElementById('underDiv');
-		const threshold = thedockOJ.offsetHeight;
 		var dIOn = false
+			
 		window.addEventListener('mousemove', (e) => {
 			const distanceFromBottom = window.innerHeight - e.clientY;
-
+			let threshold = thedockOJ.offsetHeight;
 			if ((distanceFromBottom > threshold || e.buttons === 0)&& dIOn) {
 				thedockOJ.classList.add('visible');
 			} else {
