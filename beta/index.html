@@ -14338,7 +14338,7 @@ function dependOn(modName, callback, forceLoad) {
 	}
 	dependents[modName].push(callback);
 	if (forceLoad && loadedMods.indexOf(modName) === -1 && queuedMods.indexOf(modName) === -1 && queuedDependencies.indexOf(modName) === -1) {
-		queuedDependencies.push((modName.startsWith("http") ? "" : (standalone ? "https://sandboxels.r74n.com/mods/" : "mods/")) + modName);
+		queuedDependencies.push((modName.startsWith("http") ? "" : (standalone ? "https://aeryli.github.io/anls-sandvoxels/mods/" : "mods/")) + modName);
 	}
 }
 function checkDependents(modName) {
@@ -14410,6 +14410,7 @@ for (var i = 0; i < enabledMods.length; i++) {
 				}
 			}
 		})
+		console.log(script)
 		document.head.appendChild(script);
 	} catch (e) {
 		console.log("Error in mod: " + enabledMods[i]);
@@ -18938,54 +18939,47 @@ for (var k = 0; k < b0.split(" AND ").length; k++) {
 			else return;
 			if (currentTab) currentTab.classList.remove("selected")
 		}
-		function addMod(url, noMessage) {
-    let split = url.split(/ ?; ?/g);
-    if (split.length > 1) {
-        split.forEach(addMod);
-        return;
-    }
-
-    // 1. Clean up trailing slashes and illegal characters
-    while (url.charAt(url.length - 1) == "/") { url = url.substring(0, url.length - 1); }
-    url = url.replaceAll(/['‘’“”"\$\{\}\\]/g, "");
-
-    // 2. Validation
-    if (url.indexOf("/") == -1 && url.indexOf(".") == -1 && !noMessage) {
-        promptText("Invalid mod URL.", showModManager, "Error");
-        return;
-    }
-
-    // 3. Folder Navigation Logic
-    // If the user didn't provide a full URL (http) and didn't specify a path,
-    // we force it to look at the root /mods/ folder.
-    if (url.indexOf("http") == -1 && !url.startsWith("/")) {
-        // This ensures both index.html and beta/index.html look at /main/mods/
-        url = "/mods/" + url;
-    }
-
-    // 4. Duplicate check
-    for (var i = 0; i < enabledMods.length; i++) {
-        if (enabledMods[i] == url) { return; }
-    }
-
-    // 5. Update storage and UI
-    enabledMods.push(url);
-    localStorage.setItem("enabledMods", JSON.stringify(enabledMods));
-
-    var modManagerList = document.getElementById("modManagerList");
-    var modName = url.split("/").pop();
-    
-    modManagerList.innerHTML += `<li><a href="${url.replaceAll('"', '')}" target="_blank">${modName}</a> <span class="removeModX" onclick='removeMod("${url.replaceAll('"', '\\\"')}")'>X</span></li>`;
-    
-    document.getElementById("noMods").style.display = "none";
-    document.getElementById("modManagerRefresh").style.display = "block";
-
-    if (!noMessage) {
-        changedMods = true;
-        promptText("Refresh the page to apply changes.", showModManager, "Added Mod");
-    }
-    return url;
-}
+		function addMod(url,noMessage) {
+			let split = url.split(/ ?; ?/g);
+			if (split.length > 1) {
+				split.forEach(addMod);
+				return;
+			}
+			// remove trailing slashes
+			while (url.charAt(url.length-1) == "/") { url = url.substring(0, url.length-1); }
+			url = url.replaceAll(/['‘’“”"\$\{\}\\]/g,"");
+			// if the url doesn't have a slash or a dot, alert
+			if (url.indexOf("/") == -1 && url.indexOf(".") == -1 && !noMessage) {
+				promptText("Invalid mod URL.\n\nYou usually want something like 'survival.js' (without the quotes)", showModManager, "Error");
+				return;
+			}
+			// if the url doesn't start with http, add "mods/" to the beginning
+			if (url.indexOf("http") == -1 && url.indexOf("mods/") == -1) {
+				url = "mods/"+url;
+				if (standalone) url = "https://aeryli.github.io/anls-sandvoxels/" + url;
+			}
+			else if (standalone && url.startsWith("mods/")) {
+				url = "https://aeryli.github.io/anls-sandvoxels/" + url;
+			}
+			// if the mod is in enabledMods, return
+			for (var i = 0; i < enabledMods.length; i++) {
+				if (enabledMods[i] == url) { return; }
+			}
+			// add it to enabledMods and set the localStorage
+			enabledMods.push(url);
+			localStorage.setItem("enabledMods", JSON.stringify(enabledMods));
+			// add to modManagerList
+			var modManagerList = document.getElementById("modManagerList");
+			var modName = url.split("/").pop();
+			modManagerList.innerHTML += `<li><a href="${url.replaceAll('"','')}" target="_blank">${modName}</a> <span class="removeModX" onclick='removeMod("${url.replaceAll('"','\\\"')}")'>X</span></li>`
+			document.getElementById("noMods").style.display = "none";
+			document.getElementById("modManagerRefresh").style.display = "block";
+			if (!noMessage) {
+				changedMods = true;
+				promptText((standalone ? "Reset the canvas" : "Refresh the page")+" to apply changes.", showModManager, "Added Mod");
+			}
+			return url;
+		}
 		function removeMod(url,noMessage) {
 			// remove url from enabledMods and set the localStorage
 			for (var i = 0; i < enabledMods.length; i++) {
