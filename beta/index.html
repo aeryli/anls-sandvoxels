@@ -14383,7 +14383,7 @@ for (var i = 0; i < enabledMods.length; i++) {
 			modName = src;
 		}
 		queuedMods.push(modName);
-		script.src = src;
+		script.src = "https://aeryli.github.io/anls-sandvoxels/" + src;
 		script.addEventListener("load", function(){
 			checkDependents(modName);
 			loadedMods.push(modName);
