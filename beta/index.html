@@ -20962,7 +20962,7 @@ window.onload = function() {
 		window.addEventListener('mousemove', (e) => {
 			const distanceFromBottom = window.innerHeight - e.clientY;
 			let threshold = thedockOJ.offsetHeight;
-			if ((distanceFromBottom > threshold || e.buttons === 0 || KeyboardEvent.key === "Space")&& dIOn) {
+			if ((distanceFromBottom > threshold || e.buttons === 0 || KeyboardEvent.ctrlKey)&& dIOn) {
 				thedockOJ.classList.add('visible');
 			} else {
 				thedockOJ.classList.remove('visible');
