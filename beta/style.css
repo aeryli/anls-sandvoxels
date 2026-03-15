@@ -1068,3 +1068,8 @@ img {
     position: absolute;
     z-index: 2;
 }
+#ctrlTool {
+  border-radius: 25px;
+  background-color: #73AD21;
+  padding: 20px;
+}
