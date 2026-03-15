@@ -1048,7 +1048,7 @@ img {
 	bottom: 0;
 	height: max-content;
 	width: 100%;
-	transform: translateY(70%);
+	transform: translateY(30%);
 	transition: transform 0.3s ease-out;
 	z-index: 1000;
 	max-height: 500px;
