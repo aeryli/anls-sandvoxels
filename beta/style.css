@@ -1066,7 +1066,7 @@ img {
 }
 #backbutton {
     position: absolute;
-    z-index: 2;
+    z-index: 1009;
 }
 #ctrlTool {
 	border-radius: 25px;
