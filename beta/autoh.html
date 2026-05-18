@@ -70,7 +70,7 @@
         // --- 1. SETUP CANVAS ---
         function resize() {
             canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight * 2;
+            canvas.height = window.innerHeight;
         }
         window.addEventListener('resize', resize);
         resize();
@@ -85,7 +85,7 @@
 
             // --- 2. DOCK LOGIC ---
             if (!isManuallyClosed) {
-                const distanceFromBottom = (window.innerHeight * 2) - e.clientY;
+                const distanceFromBottom = (window.innerHeight) - e.clientY;
                 if (distanceFromBottom > threshold || e.buttons === 0) {
                     dock.classList.add('visible');
                 } else {
